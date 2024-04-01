@@ -1,0 +1,111 @@
+React - Js Library
+
+Why React ?
+> Declarative approach instead of Imperative approach (executing line by line code, inefficient, costlier process) of Js
+> For embedding dynamic approach for SPA's (loading single html document and changing dynamically)
+> Reusability
+> DRY principle
+> Readability
+> Seperation of concern
+> Maintaibility
+
+package.json
+> Stores dependencies, versions and scripts needed to run code.
+
+react and react-dom forms actual react app
+
+index.js
+> Entry point of js
+> First js file to be executed
+
+
+> Fetched element of id as root and added root element as root of ReactDOM in index.js file
+> Rendered App component with the help of root element
+
+jsx
+> HTML code inside JavaScript
+> Custom HTML element
+> User friendly code 
+> Browser converts that jsx code into understandable format when we do npm start
+> Like it adds the content of components into index.html file 
+
+Components
+> By default, component inside component or content is not visible.
+> To make it visible, need to use {props.children} in outer component file
+
+<Card category="Washing powder">
+    <Item name="Surf excel" price="89" quantity="3" />
+    <Item name="Arial" price="79" quantity="3" />
+    <Item name="Tide" price="99" quantity="3" />
+</Card>
+
+In this point, Item component will not be visible until we use props.children
+
+Props
+> Parent component can communicate with child component with props.
+> With props, you can pass parameters as well as can do event handling with declarative approach (just need target, and react will do rest work) starting with keyword on... .
+> addEventListener <--> on...
+
+eg. 
+const [name, setName] = useState(props.name);
+
+function clickHandler(){
+    // will not change the name as react dom renders only once
+    // name = "Nirma";
+    setName("Nirma");
+    // re-render after setting new value of name
+    console.log("Clicked on cart");
+}
+o
+If we do this
+<button onClick={clickHandler()}>Add to cart</button> 
+then either we click or not on button the function will be executed automatically equal to times the button is included in item.
+
+State
+> To change UI or re-render UI with change in any variable or any state.
+> It is per component instance basis (for each component depending upon some event triggered).
+eg. useState - returns array of two elements variable and function to update the value.
+const [variable_name, function_to_change_variable] = useState(initial_value_of_variable);
+
+React Hook
+> Utility function.
+
+Why const in const [name, setName] = useState(props.name)?
+> Standard JavaScript practice, ensures that name and setName cannot be reassigned to another value, although the values they reference (the state value and the state setter function) can change over time due to the nature of React state management.
+
+Is this setName function get executed immediately or scheduled?
+> Does not execute immediately. Instead, it schedules an update to the component's state. React then batches state updates.
+> Ensures that multiple state updates within the same synchronous execution in a single re-render, improving performance by reducing unnecessary renders.
+
+eg. 
+const[date, setDate] = useState('');
+function dateChangeHandler(event){
+    setDate(event.target.value);
+    console.log(date); // prints old date instead of new date as its setDate function being scheduled
+}
+
+Handling multiple states
+> Passing object as parameter into state.
+
+eg.
+const [fullProductInput, setFullProductInput] = useState({
+    name:'',
+    date:''
+});
+
+Prop Functions 
+> Helps child component to communicate with parent component.
+> Called as Prop Drilling.
+> Function is created in parent component that takes object as parameters -> Passed as props to child -> Function call is made from child component.
+
+Key in Map
+> Elements inside the map() call needs keys.
+> Mandatory to pass key while working with map.
+> Best practice to pass a unique id whenever you perform map on any list.
+> If no unique identifier is there then you can pass index but it's not suggested.
+
+UseEffect
+> To manage side effects of application.
+> Change in different component if any changes made it to any one component.
+> useEffect hook get starting executed whenever that particular component in which hook is defined get rendered.
+> eg. making an api call, updating states, changing document title, modifying browser history.
