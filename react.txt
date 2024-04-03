@@ -105,7 +105,61 @@ Key in Map
 > If no unique identifier is there then you can pass index but it's not suggested.
 
 UseEffect
+> To do some task after rendering the current component.
+> To do some additional task other than component's normal flow execution => side effect 
 > To manage side effects of application.
 > Change in different component if any changes made it to any one component.
 > useEffect hook get starting executed whenever that particular component in which hook is defined get rendered.
 > eg. making an api call, updating states, changing document title, modifying browser history.
+> Four variations - 
+
+variation 1 => Renders each time (equivalent to componentDidUpdate)
+useEffect(()=>{
+        console.log("UI rendering done");
+});
+
+variation 2 => Only for first render first parameter is callback funtion (what to do on side effect) + (equivalent to componentDidMount) having array of dependency list (executes useEffect as change in dependancy) as second parameter
+useEffect(() =>{     
+console.log("UI rendering done")
+}, [])
+
+variation 3 => Only for first render + when your dependancy (state, props) changes
+useEffect(()=>{
+    console.log("Change observed");
+}, [text, name])
+
+// variation 4 => To handle unmounting of component (Clean-up on component unmount or equivalent to componentWillUnmount)
+useEffect(() => {
+    // to add event listener
+    console.log('Listener added');
+
+    // first this will run then above line
+    return () => { 
+        console.log('Listener removed');
+    };
+}, [text]);
+
+eg.
+const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+useEffect(() => {
+        console.log("UI rendered");
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+NPM Packages
+npm i react-icons --save
+npm i react-toastify
